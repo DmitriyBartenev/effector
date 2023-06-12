@@ -11,7 +11,7 @@ const Header = () => {
         <DarkThemeIcon />
       </div>
       <div>
-        <p>Load</p>
+        <p>Load Employees</p>
       </div>
     </div>
   );
