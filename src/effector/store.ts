@@ -44,6 +44,7 @@ type Store = {
 
 export const setNewEmployee = createEvent<string>();
 export const addEmployee = createEvent();
+export const removeEmployeeById = createEvent<number>();
 
 export default createStore<Store>({
   employees: [],
@@ -57,4 +58,8 @@ export default createStore<Store>({
     ...state,
     newEmployeeFullName: '',
     employees: addEmployeeToList(state.employees, state.newEmployeeFullName),
+  }))
+  .on(removeEmployeeById, (state, employeeId: number) => ({
+    ...state,
+    employees: removeEmployee(state.employees, employeeId),
   }));

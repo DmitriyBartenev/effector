@@ -3,7 +3,7 @@ import React from 'react';
 
 import { useStore } from 'effector-react';
 
-import $store from '../../effector/store';
+import $store, { removeEmployeeById } from '../../effector/store';
 
 import styles from './users.module.scss';
 
@@ -17,7 +17,9 @@ const Users: React.FC = () => {
           <li key={employee.id}>
             <input type='checkbox' />
             <span>{employee.fullName}</span>
-            <button>Delete</button>
+            <button onClick={() => removeEmployeeById(employee.id)}>
+              Delete
+            </button>
           </li>
         ))}
       </ul>

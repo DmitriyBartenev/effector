@@ -15,7 +15,10 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ title, header }) => {
   const store = useStore($store);
 
   return (
-    <form className={styles.employeeForm}>
+    <form
+      className={styles.employeeForm}
+      onSubmit={(event) => event.preventDefault()}
+    >
       <h1>{header}</h1>
       <div className={styles.employeeFormContainer}>
         <input
@@ -24,7 +27,7 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ title, header }) => {
           value={store.newEmployeeFullName}
           onChange={(event) => setNewEmployee(event.target.value)}
         />
-        <button type='button' onClick={() => addEmployee()}>
+        <button type='submit' onClick={() => addEmployee()}>
           {title}
         </button>
       </div>
