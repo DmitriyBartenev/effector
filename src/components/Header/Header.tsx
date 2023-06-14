@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { DarkThemeIcon } from '@icons/DarkThemeIcon';
+import { DarkThemeIcon } from '@components/ui/icons/DarkThemeIcon';
 
 import styles from './header.module.scss';
 

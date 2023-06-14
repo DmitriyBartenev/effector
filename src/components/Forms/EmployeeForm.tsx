@@ -4,14 +4,12 @@ import { useStore } from 'effector-react';
 
 import $store, { addEmployee, setNewEmployee } from '../../effector/store';
 
+import { EmployeeSubmitButton } from '@components/ui/buttons/EmployeeSubmitButton';
+import { EmployeeInput } from '@components/ui/inputs/EmployeeInput';
+
 import styles from './employeeForm.module.scss';
 
-interface EmployeeFormProps {
-  header: string;
-  title: string;
-}
-
-const EmployeeForm: React.FC<EmployeeFormProps> = ({ title, header }) => {
+const EmployeeForm: React.FC = () => {
   const store = useStore($store);
 
   return (
@@ -19,17 +17,17 @@ const EmployeeForm: React.FC<EmployeeFormProps> = ({ title, header }) => {
       className={styles.employeeForm}
       onSubmit={(event) => event.preventDefault()}
     >
-      <h1>{header}</h1>
+      <h1>Employees</h1>
       <div className={styles.employeeFormContainer}>
-        <input
-          type='text'
-          placeholder='Employee Full Name'
-          value={store.newEmployeeFullName}
+        <EmployeeInput
           onChange={(event) => setNewEmployee(event.target.value)}
+          value={store.newEmployeeFullName}
+          placeholder='Employee Full Name'
         />
-        <button type='submit' onClick={() => addEmployee()}>
-          {title}
-        </button>
+        <EmployeeSubmitButton
+          onClick={() => addEmployee()}
+          title='Add Employee'
+        />
       </div>
     </form>
   );

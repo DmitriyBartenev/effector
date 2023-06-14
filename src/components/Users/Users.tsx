@@ -8,7 +8,8 @@ import $store, {
   toggleEmployeeById,
 } from '../../effector/store';
 
-import { FavouriteEmployeeIcon } from '@components/icons/FavouriteEmployeeIcon';
+import { FavouriteEmployeeIcon } from '@components/ui/icons/FavouriteEmployeeIcon';
+import { EmployeeSubmitButton } from '@components/ui/buttons/EmployeeSubmitButton';
 
 import styles from './users.module.scss';
 
@@ -29,12 +30,10 @@ const Users: React.FC = () => {
                 isFavourite={employee.favourite}
                 toggleEmployeeById={() => toggleEmployeeById(employee.id)}
               />
-              <button
+              <EmployeeSubmitButton
                 onClick={() => removeEmployeeById(employee.id)}
-                className={styles.removeEmployeeButton}
-              >
-                Delete
-              </button>
+                title='Delete'
+              />
             </div>
           </li>
         ))}
