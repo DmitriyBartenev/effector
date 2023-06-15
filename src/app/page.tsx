@@ -1,16 +1,16 @@
 import EmployeeForm from '@components/Forms/EmployeeForm';
 import Users from '@components/Users/Users';
 import Header from '@components/Header/Header';
-import ThemeLayout from '@components/Layouts/ThemeLayout';
+import ThemeProvider from '@components/Layouts/ThemeProvider';
 
 export default function Home() {
   return (
     <main>
-      <ThemeLayout>
+      <ThemeProvider>
         <Header />
         <EmployeeForm />
         <Users />
-      </ThemeLayout>
+      </ThemeProvider>
     </main>
   );
 }
