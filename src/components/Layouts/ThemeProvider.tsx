@@ -2,20 +2,37 @@
 
 import React, { createContext } from 'react';
 
-interface ThemeProviderProps {
-  children: React.ReactNode;
+interface IThemeContext {
+  activeTheme: string;
+  toggleActiveTheme?: () => void;
 }
 
 const themes = {
-  dark: '#333',
   light: '#FFF',
+  dark: '#333',
 };
 
-export const ThemeContext = createContext(themes);
+export const ThemeContext = createContext<IThemeContext>({
+  activeTheme: themes.light,
+});
 
-const ThemeProvider: React.FC<ThemeProviderProps> = ({ children }) => {
+const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [activeTheme, setActiveTheme] = React.useState(themes.light);
+
+  const toggleActiveTheme = () => {
+    if (activeTheme === themes.light) {
+      setActiveTheme(themes.dark);
+    } else {
+      setActiveTheme(themes.light);
+    }
+  };
+
   return (
-    <ThemeContext.Provider value={themes}>{children}</ThemeContext.Provider>
+    <ThemeContext.Provider value={{ activeTheme, toggleActiveTheme }}>
+      {children}
+    </ThemeContext.Provider>
   );
 };
 
