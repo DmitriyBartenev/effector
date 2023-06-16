@@ -8,14 +8,11 @@ import { DarkThemeIcon } from '@components/ui/icons/DarkThemeIcon';
 import styles from './header.module.scss';
 
 const Header = () => {
-  const theme = useContext(ThemeContext);
+  const themeContext = useContext(ThemeContext);
 
   return (
-    <div
-      className={styles.header}
-      style={{ backgroundColor: `${theme.activeTheme}` }}
-    >
-      <div onClick={theme.toggleActiveTheme}>
+    <div className={styles.header}>
+      <div onClick={themeContext.toggleActiveTheme}>
         <DarkThemeIcon />
       </div>
       <div>

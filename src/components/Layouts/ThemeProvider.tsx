@@ -8,8 +8,8 @@ interface IThemeContext {
 }
 
 const themes = {
-  light: '#FFF',
-  dark: '#333',
+  light: '#f3e8eb',
+  dark: '#433e49',
 };
 
 export const ThemeContext = createContext<IThemeContext>({
