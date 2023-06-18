@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { ThemeContext } from '@components/Layouts/ThemeProvider';
 
 import styles from './buttons.module.scss';
 
@@ -11,11 +13,14 @@ export const EmployeeSubmitButton: React.FC<EmployeeSubmitButtonProps> = ({
   onClick,
   title,
 }) => {
+  const { activeTextTheme } = useContext(ThemeContext);
+
   return (
     <button
       type='submit'
       onClick={onClick}
       className={styles.employeeSubmitButton}
+      style={{ color: activeTextTheme }}
     >
       {title}
     </button>

@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
+
+import { ThemeContext } from '@components/Layouts/ThemeProvider';
 
 import styles from './employeeInput.module.scss';
 
@@ -13,6 +15,8 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
   value,
   placeholder,
 }) => {
+  const { activeTextTheme } = useContext(ThemeContext);
+
   return (
     <input
       type='text'
@@ -20,6 +24,7 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
       value={value}
       onChange={onChange}
       className={styles.employeeInput}
+      style={{ color: activeTextTheme }}
     />
   );
 };
