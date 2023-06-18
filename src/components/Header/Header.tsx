@@ -10,15 +10,17 @@ import styles from './header.module.scss';
 const Header = () => {
   const themeContext = useContext(ThemeContext);
 
+  const { toggleActiveTheme } = themeContext;
+
   return (
-    <div className={styles.header}>
-      <div onClick={themeContext.toggleActiveTheme}>
+    <header className={styles.header}>
+      <div onClick={toggleActiveTheme}>
         <DarkThemeIcon />
       </div>
       <div>
         <p>Load Employees</p>
       </div>
-    </div>
+    </header>
   );
 };
 
