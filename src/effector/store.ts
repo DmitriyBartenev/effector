@@ -46,6 +46,10 @@ export const setNewEmployee = createEvent<string>();
 export const addEmployee = createEvent();
 export const removeEmployeeById = createEvent<number>();
 export const toggleEmployeeById = createEvent<number>();
+export const updateEmployeeById = createEvent<{
+  id: number;
+  updatedFullName: string;
+}>();
 
 export default createStore<Store>({
   employees: [],
@@ -67,4 +71,8 @@ export default createStore<Store>({
   .on(toggleEmployeeById, (state, employeeId: number) => ({
     ...state,
     employees: toggleEmployee(state.employees, employeeId),
+  }))
+  .on(updateEmployeeById, (state, { id, updatedFullName }) => ({
+    ...state,
+    employees: updateEmployee(state.employees, id, updatedFullName),
   }));
