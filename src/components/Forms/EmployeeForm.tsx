@@ -12,6 +12,9 @@ import styles from './employeeForm.module.scss';
 const EmployeeForm: React.FC = () => {
   const store = useStore($store);
 
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>): string =>
+    setNewEmployee(event.target.value);
+
   return (
     <form
       className={styles.employeeForm}
@@ -20,7 +23,7 @@ const EmployeeForm: React.FC = () => {
       <h1>Employees</h1>
       <div className={styles.employeeFormContainer}>
         <EmployeeInput
-          onChange={(event) => setNewEmployee(event.target.value)}
+          onChange={onChange}
           value={store.newEmployeeFullName}
           placeholder='Employee Full Name'
         />
