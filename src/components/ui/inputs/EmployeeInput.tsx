@@ -6,7 +6,7 @@ import styles from './employeeInput.module.scss';
 
 interface EmployeeInputProps {
   value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => string;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => string | void;
   placeholder: string;
 }
 
