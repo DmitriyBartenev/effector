@@ -1,4 +1,4 @@
-import { createEvent, createStore } from 'effector';
+import { createEvent, createStore, createEffect } from 'effector';
 
 export interface Employee {
   id: number;
@@ -50,11 +50,19 @@ export const updateEmployeeById = createEvent<{
   id: number;
   updatedFullName: string;
 }>();
+export const loadEmployees = createEffect(async (url: string) => {
+  const req = await fetch(url);
+  return req.json();
+});
 
 export default createStore<Store>({
   employees: [],
   newEmployeeFullName: '',
 })
+  .on(loadEmployees.doneData, (state, employees) => ({
+    ...state,
+    employees,
+  }))
   .on(setNewEmployee, (state, newEmployeeFullName) => ({
     ...state,
     newEmployeeFullName,

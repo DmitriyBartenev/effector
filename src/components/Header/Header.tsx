@@ -1,8 +1,9 @@
 'use client';
 import React, { useContext } from 'react';
 
-import { ThemeContext } from '@components/Layouts/ThemeProvider';
+import { loadEmployees } from '../../effector/store';
 
+import { ThemeContext } from '@components/Layouts/ThemeProvider';
 import { DarkThemeIcon } from '@components/ui/icons/DarkThemeIcon';
 
 import styles from './header.module.scss';
@@ -17,7 +18,13 @@ const Header = () => {
       <div onClick={toggleActiveTheme}>
         <DarkThemeIcon />
       </div>
-      <div>
+      <div
+        onClick={() =>
+          loadEmployees(
+            'https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json'
+          )
+        }
+      >
         <p>Load Employees</p>
       </div>
     </header>
