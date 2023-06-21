@@ -18,13 +18,7 @@ const Header = () => {
       <div onClick={toggleActiveTheme}>
         <DarkThemeIcon />
       </div>
-      <div
-        onClick={() =>
-          loadEmployees(
-            'https://raw.githubusercontent.com/jherr/todos-four-ways/master/data/todos.json'
-          )
-        }
-      >
+      <div onClick={() => loadEmployees('http://localhost:8080/employees')}>
         <p>Load Employees</p>
       </div>
     </header>

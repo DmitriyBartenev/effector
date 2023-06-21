@@ -1,0 +1,19 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "fullName": "Tom Hanks",
+      "favourite": true
+    },
+    {
+      "id": 2,
+      "fullName": "Jenny Curran",
+      "favourite": false
+    },
+    {
+      "id": 3,
+      "fullName": "Michael Clarke Duncan",
+      "favourite": false      
+    }
+  ]
+}
