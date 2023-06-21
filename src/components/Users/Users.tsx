@@ -12,7 +12,7 @@ import styles from './users.module.scss';
 
 const Users: React.FC = () => {
   const store = useStore($store);
-  const { activeTextTheme } = useContext(ThemeContext);
+  const { activeTheme } = useContext(ThemeContext);
 
   return (
     <section>
@@ -23,7 +23,7 @@ const Users: React.FC = () => {
             <UserItem
               key={employee.id}
               {...employee}
-              activeTextTheme={activeTextTheme}
+              activeTheme={activeTheme.text}
             />
           ))}
         </ul>

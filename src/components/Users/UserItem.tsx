@@ -16,14 +16,14 @@ interface UserItemProps {
   id: number;
   fullName: string;
   favourite: boolean;
-  activeTextTheme: string;
+  activeTheme: string;
 }
 
 const UserItem: React.FC<UserItemProps> = ({
   favourite,
   fullName,
   id,
-  activeTextTheme,
+  activeTheme,
 }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -32,7 +32,7 @@ const UserItem: React.FC<UserItemProps> = ({
   };
 
   return (
-    <li style={{ color: favourite ? '#F6C026' : activeTextTheme }}>
+    <li style={{ color: favourite ? '#F6C026' : activeTheme }}>
       {editMode ? (
         <EmployeeInput value={fullName} onChange={onChange} placeholder='' />
       ) : (

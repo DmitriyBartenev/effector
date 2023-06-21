@@ -13,14 +13,14 @@ export const EmployeeSubmitButton: React.FC<EmployeeSubmitButtonProps> = ({
   onClick,
   title,
 }) => {
-  const { activeTextTheme } = useContext(ThemeContext);
+  const { activeTheme } = useContext(ThemeContext);
 
   return (
     <button
       type='submit'
       onClick={onClick}
       className={styles.employeeSubmitButton}
-      style={{ color: activeTextTheme }}
+      style={{ color: activeTheme.text }}
     >
       {title}
     </button>

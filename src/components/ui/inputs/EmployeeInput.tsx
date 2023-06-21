@@ -15,7 +15,7 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
   value,
   placeholder,
 }) => {
-  const { activeTextTheme } = useContext(ThemeContext);
+  const { activeTheme } = useContext(ThemeContext);
 
   return (
     <input
@@ -24,7 +24,7 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
       value={value}
       onChange={onChange}
       className={styles.employeeInput}
-      style={{ color: activeTextTheme }}
+      style={{ color: activeTheme.text }}
     />
   );
 };
