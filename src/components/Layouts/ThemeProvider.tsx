@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, useLayoutEffect } from 'react';
 
 interface IThemeContext {
   activeTheme: {
@@ -37,20 +37,35 @@ const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
     background: themes.background.light,
   });
 
-  const toggleActiveTheme = () => {
-    if (activeTheme.background === themes.background.light) {
-      setActiveTheme({
-        text: themes.text.light,
-        background: themes.background.dark,
-      });
-      document.body.style.backgroundColor = themes.background.dark;
-    } else {
-      setActiveTheme({
-        text: themes.text.dark,
-        background: themes.background.light,
-      });
-      document.body.style.backgroundColor = themes.background.light;
+  useLayoutEffect(() => {
+    const storedTheme = localStorage.getItem('activeTheme');
+    if (storedTheme) {
+      const parsedTheme = JSON.parse(storedTheme);
+      document.body.style.backgroundColor = parsedTheme.background;
+      setActiveTheme(parsedTheme);
     }
+  }, []);
+
+  const toggleActiveTheme = () => {
+    const nextBackgroundColor =
+      activeTheme.background === themes.background.light
+        ? themes.background.dark
+        : themes.background.light;
+
+    const nextTextColor =
+      activeTheme.text === themes.text.dark
+        ? themes.text.light
+        : themes.text.dark;
+
+    const theme = {
+      text: nextTextColor,
+      background: nextBackgroundColor,
+    };
+
+    const themeJSON = JSON.stringify(theme);
+    localStorage.setItem('activeTheme', themeJSON);
+    setActiveTheme(theme);
+    document.body.style.backgroundColor = nextBackgroundColor;
   };
 
   const mainSectionStyle = {
