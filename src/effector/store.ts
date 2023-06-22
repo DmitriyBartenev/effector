@@ -1,34 +1,30 @@
 import { createEvent, createStore, createEffect } from 'effector';
-
-export interface Employee {
-  id: number;
-  fullName: string;
-  favourite: boolean;
-}
+import axios from 'axios';
+import type { IEmployee } from 'types/IEmployee';
 
 const updateEmployee = (
-  employees: Employee[],
+  employees: IEmployee[],
   id: number,
   fullName: string
-): Employee[] =>
+): IEmployee[] =>
   employees.map((employee) => ({
     ...employee,
     fullName: employee.id === id ? fullName : employee.fullName,
   }));
 
-const toggleEmployee = (employees: Employee[], id: number): Employee[] =>
+const toggleEmployee = (employees: IEmployee[], id: number): IEmployee[] =>
   employees.map((employee) => ({
     ...employee,
     favourite: employee.id === id ? !employee.favourite : employee.favourite,
   }));
 
-const removeEmployee = (employees: Employee[], id: number): Employee[] =>
+const removeEmployee = (employees: IEmployee[], id: number): IEmployee[] =>
   employees.filter((employee) => employee.id !== id);
 
 const addEmployeeToList = (
-  employees: Employee[],
+  employees: IEmployee[],
   fullName: string
-): Employee[] => [
+): IEmployee[] => [
   ...employees,
   {
     id: Math.random(),
@@ -38,7 +34,7 @@ const addEmployeeToList = (
 ];
 
 type Store = {
-  employees: Employee[];
+  employees: IEmployee[];
   newEmployeeFullName: string;
 };
 
@@ -50,10 +46,12 @@ export const updateEmployeeById = createEvent<{
   id: number;
   updatedFullName: string;
 }>();
-export const loadEmployees = createEffect(async (url: string) => {
-  const req = await fetch(url);
-  return req.json();
-});
+export const loadEmployees = createEffect<string, IEmployee[]>(
+  async (url: string): Promise<IEmployee[]> => {
+    const res = await axios.get<IEmployee[]>(url);
+    return res.data;
+  }
+);
 
 export default createStore<Store>({
   employees: [],
