@@ -2,14 +2,19 @@
   margin-top: 15px;
   padding: 0 12px;
   ul {
-    line-height: 50px;
+    line-height: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
     li {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      gap: 15px;
       .employee_actions {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 15px;
         svg {
           cursor: pointer;

@@ -34,7 +34,12 @@ const UserItem: React.FC<UserItemProps> = ({
   return (
     <li style={{ color: favourite ? '#F6C026' : activeTheme }}>
       {editMode ? (
-        <EmployeeInput value={fullName} onChange={onChange} placeholder='' />
+        <EmployeeInput
+          value={fullName}
+          onChange={onChange}
+          placeholder=''
+          favourite={favourite}
+        />
       ) : (
         <span>{fullName}</span>
       )}

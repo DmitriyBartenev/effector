@@ -8,12 +8,14 @@ interface EmployeeInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => string | void;
   placeholder: string;
+  favourite?: boolean;
 }
 
 export const EmployeeInput: React.FC<EmployeeInputProps> = ({
   onChange,
   value,
   placeholder,
+  favourite,
 }) => {
   const { activeTheme } = useContext(ThemeContext);
 
@@ -24,7 +26,7 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
       value={value}
       onChange={onChange}
       className={styles.employeeInput}
-      style={{ color: activeTheme.text }}
+      style={{ color: favourite ? 'rgb(246, 192, 3)' : activeTheme.text }}
     />
   );
 };
