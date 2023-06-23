@@ -1,8 +1,9 @@
 'use client';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useStore } from 'effector-react';
 
 import $store from '../../effector/store';
+import { loadEmployees } from '../../effector/store';
 
 import { ThemeContext } from '@components/Layouts/ThemeProvider';
 import EmployeeForm from '@components/Forms/EmployeeForm';
@@ -13,6 +14,10 @@ import styles from './users.module.scss';
 const Users: React.FC = () => {
   const store = useStore($store);
   const { activeTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    loadEmployees('http://localhost:8080/employees');
+  }, []);
 
   return (
     <section>
