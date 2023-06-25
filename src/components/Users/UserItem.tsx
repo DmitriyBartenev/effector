@@ -31,6 +31,12 @@ const UserItem: React.FC<UserItemProps> = ({
     updateEmployeeById({ id, updatedFullName: event.target.value });
   };
 
+  const onSaveEditEmployee = () => {
+    if (!fullName) return;
+
+    setEditMode((prev) => !prev);
+  };
+
   return (
     <li style={{ color: favourite ? '#F6C026' : activeTheme }}>
       {editMode ? (
@@ -54,7 +60,7 @@ const UserItem: React.FC<UserItemProps> = ({
           type='button'
         />
         <EmployeeSubmitButton
-          onClick={() => setEditMode((prev) => !prev)}
+          onClick={onSaveEditEmployee}
           title={editMode ? 'Save' : 'Edit'}
           type='button'
         />
