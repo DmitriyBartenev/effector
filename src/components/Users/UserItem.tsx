@@ -50,10 +50,9 @@ const UserItem: React.FC<UserItemProps> = ({
         <span>{fullName}</span>
       )}
       <div className={styles.employee_actions}>
-        <FavouriteEmployeeIcon
-          favourite={favourite}
-          toggleEmployeeById={() => toggleEmployeeById(id)}
-        />
+        <button onClick={() => toggleEmployeeById(id)}>
+          <FavouriteEmployeeIcon favourite={favourite} />
+        </button>
         <EmployeeSubmitButton
           onClick={() => removeEmployeeById(id)}
           title='Delete'

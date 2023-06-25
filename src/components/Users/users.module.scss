@@ -19,6 +19,13 @@
         svg {
           cursor: pointer;
         }
+        button {
+          background-color: transparent;
+          border: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
         .removeEmployeeButton {
           background-color: transparent;
           padding: 3px 6px;

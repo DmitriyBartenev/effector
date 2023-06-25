@@ -4,12 +4,10 @@ import { ThemeContext } from '@components/Layouts/ThemeProvider';
 
 interface FavouriteEmployeeIconProps {
   favourite: boolean;
-  toggleEmployeeById: () => void;
 }
 
 export const FavouriteEmployeeIcon: React.FC<FavouriteEmployeeIconProps> = ({
   favourite,
-  toggleEmployeeById,
 }) => {
   const { activeTheme } = useContext(ThemeContext);
 
@@ -21,7 +19,6 @@ export const FavouriteEmployeeIcon: React.FC<FavouriteEmployeeIconProps> = ({
       height='16px'
       viewBox='0 0 64 64'
       enableBackground='new 0 0 64 64'
-      onClick={toggleEmployeeById}
     >
       <path
         fill={favourite ? '#F6C026' : activeTheme.text}
