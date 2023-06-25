@@ -51,10 +51,12 @@ const UserItem: React.FC<UserItemProps> = ({
         <EmployeeSubmitButton
           onClick={() => removeEmployeeById(id)}
           title='Delete'
+          type='button'
         />
         <EmployeeSubmitButton
           onClick={() => setEditMode((prev) => !prev)}
           title={editMode ? 'Save' : 'Edit'}
+          type='button'
         />
       </div>
     </li>

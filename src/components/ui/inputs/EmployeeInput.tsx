@@ -27,6 +27,7 @@ export const EmployeeInput: React.FC<EmployeeInputProps> = ({
       onChange={onChange}
       className={styles.employeeInput}
       style={{ color: favourite ? 'rgb(246, 192, 3)' : activeTheme.text }}
+      required
     />
   );
 };

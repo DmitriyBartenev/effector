@@ -15,11 +15,13 @@ const EmployeeForm: React.FC = () => {
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): string =>
     setNewEmployee(event.target.value);
 
+  const onSubmit = (event: React.ChangeEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    addEmployee();
+  };
+
   return (
-    <form
-      className={styles.employeeForm}
-      onSubmit={(event) => event.preventDefault()}
-    >
+    <form className={styles.employeeForm} onSubmit={onSubmit}>
       <h1>Employees</h1>
       <div className={styles.employeeFormContainer}>
         <EmployeeInput
@@ -27,10 +29,7 @@ const EmployeeForm: React.FC = () => {
           value={store.newEmployeeFullName}
           placeholder='Employee Full Name'
         />
-        <EmployeeSubmitButton
-          onClick={() => addEmployee()}
-          title='Add Employee'
-        />
+        <EmployeeSubmitButton title='Add Employee' type='submit' />
       </div>
     </form>
   );
