@@ -6,9 +6,7 @@ import {
   updateEmployeeById,
 } from '../../effector/store';
 
-import { EmployeeInput } from '@components/ui/inputs/EmployeeInput';
-import { FavouriteEmployeeIcon } from '@ui/icons/FavouriteEmployeeIcon';
-import { EmployeeSubmitButton } from '@ui/buttons/EmployeeSubmitButton';
+import { inputs, buttons, icons } from '@ui';
 
 import styles from './users.module.scss';
 
@@ -26,6 +24,10 @@ const UserItem: React.FC<UserItemProps> = ({
   activeTheme,
 }) => {
   const [editMode, setEditMode] = useState<boolean>(false);
+
+  const { EmployeeInput } = inputs;
+  const { EmployeeSubmitButton } = buttons;
+  const { FavouriteEmployeeIcon } = icons;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     updateEmployeeById({ id, updatedFullName: event.target.value });
