@@ -4,13 +4,14 @@ import { useStore } from 'effector-react';
 
 import $store, { addEmployee, setNewEmployee } from '../../effector/store';
 
-import { EmployeeSubmitButton } from '@components/ui/buttons/EmployeeSubmitButton';
-import { EmployeeInput } from '@components/ui/inputs/EmployeeInput';
+import { buttons, inputs } from '@ui';
 
 import styles from './employeeForm.module.scss';
 
 const EmployeeForm: React.FC = () => {
   const store = useStore($store);
+  const { EmployeeSubmitButton } = buttons;
+  const { EmployeeInput } = inputs;
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>): string =>
     setNewEmployee(event.target.value);

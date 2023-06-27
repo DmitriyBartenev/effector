@@ -2,13 +2,14 @@
 import React, { useContext } from 'react';
 
 import { ThemeContext } from '@components/Layouts/ThemeProvider';
-import { DarkThemeIcon } from '@components/ui/icons/DarkThemeIcon';
+import { icons } from '@ui';
 
 import styles from './header.module.scss';
 
 const Header = () => {
   const themeContext = useContext(ThemeContext);
 
+  const { DarkThemeIcon } = icons;
   const { toggleActiveTheme } = themeContext;
 
   return (
