@@ -35,7 +35,6 @@ const UserItem: React.FC<UserItemProps> = ({
 
   const onSaveEditEmployee = () => {
     if (!fullName) return;
-
     setEditMode((prev) => !prev);
   };
 

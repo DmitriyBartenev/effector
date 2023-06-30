@@ -10,6 +10,7 @@ import styles from './employeeForm.module.scss';
 
 const EmployeeForm: React.FC = () => {
   const store = useStore($store);
+
   const { EmployeeSubmitButton } = buttons;
   const { EmployeeInput } = inputs;
 
