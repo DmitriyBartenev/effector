@@ -13,6 +13,8 @@ import styles from './users.module.scss';
 
 const Users: React.FC = () => {
   const store = useStore($store);
+  const pending = useStore(loadEmployees.pending);
+
   const { activeTheme } = useContext(ThemeContext);
 
   useEffect(() => {
@@ -24,13 +26,17 @@ const Users: React.FC = () => {
       <EmployeeForm />
       <div className={styles.usersList}>
         <ul>
-          {store.employees.map((employee) => (
-            <UserItem
-              key={employee.id}
-              {...employee}
-              activeTheme={activeTheme.text}
-            />
-          ))}
+          {pending ? (
+            <h1>Loading...</h1>
+          ) : (
+            store.employees.map((employee) => (
+              <UserItem
+                key={employee.id}
+                {...employee}
+                activeTheme={activeTheme.text}
+              />
+            ))
+          )}
         </ul>
       </div>
     </section>

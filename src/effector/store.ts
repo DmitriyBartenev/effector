@@ -48,6 +48,8 @@ export const updateEmployeeById = createEvent<{
 }>();
 export const loadEmployees = createEffect<string, IEmployee[]>(
   async (url: string): Promise<IEmployee[]> => {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     const res = await axios.get<IEmployee[]>(url);
     return res.data;
   }
