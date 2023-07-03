@@ -21,9 +21,6 @@ const Users: React.FC = () => {
     loadEmployees('http://localhost:8080/employees');
   }, []);
 
-  // loadEmployees.failData.watch((error) => console.log(error.message));
-  // Обработка ошибки
-
   return (
     <section>
       <EmployeeForm />
