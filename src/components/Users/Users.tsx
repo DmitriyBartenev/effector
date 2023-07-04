@@ -8,14 +8,16 @@ import { loadEmployees } from '../../effector/store';
 import { ThemeContext } from '@components/Layouts/ThemeProvider';
 import EmployeeForm from '@components/Forms/EmployeeForm';
 import UserItem from './UserItem';
+import { spinners } from '@ui';
 
 import styles from './users.module.scss';
 
 const Users: React.FC = () => {
   const store = useStore($store);
   const pending = useStore(loadEmployees.pending);
-
   const { activeTheme } = useContext(ThemeContext);
+
+  const { LoadingSpinner } = spinners;
 
   useEffect(() => {
     loadEmployees('http://localhost:8080/employees');
@@ -27,7 +29,7 @@ const Users: React.FC = () => {
       <div className={styles.usersList}>
         <ul>
           {pending ? (
-            <h1>Loading...</h1>
+            <LoadingSpinner />
           ) : (
             store.employees.map((employee) => (
               <UserItem

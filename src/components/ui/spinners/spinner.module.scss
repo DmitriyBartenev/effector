@@ -1,0 +1,14 @@
+.loadingSpinner {
+  margin: 0 auto;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 5px solid rgba(201, 201, 201, 0.3);
+  border-top-color: rgb(73, 73, 73);
+  @keyframes SpinnerAnimation {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  animation: SpinnerAnimation 1s ease-in-out infinite;
+}
