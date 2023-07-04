@@ -29,7 +29,7 @@ const Users: React.FC = () => {
       <div className={styles.usersList}>
         <ul>
           {pending ? (
-            <LoadingSpinner />
+            <LoadingSpinner activeTheme={activeTheme} />
           ) : (
             store.employees.map((employee) => (
               <UserItem
