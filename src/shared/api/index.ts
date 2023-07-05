@@ -1,4 +1,5 @@
 import { AxiosRequestConfig } from 'axios';
+import { createEffect } from 'effector';
 
 import { api, mockapi } from './request';
 
@@ -83,13 +84,25 @@ type SignInParams = {
   config?: AxiosRequestConfig;
 };
 
-type SignInResponse = {
+type User = {
   email: string;
   username: string;
 };
 
-export const signIn = ({ params, config }: SignInParams) =>
-  mockapi.post<SignInResponse>('/signin', { ...config, params });
+interface SignIn {
+  email: string;
+  username: string;
+}
+
+type SignInError =
+  | {
+      error: 'invalid_credentials';
+    }
+  | { error: 'invalid_request' };
+
+export const signInFx = createEffect<SignIn, User, SignInError>((form) => {
+  return mockapi.post('/signin', form);
+});
 
 type SignUpParams = {
   params: {
