@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@mantine/core": "^6.0.16",
+    "@tabler/icons-react": "^2.23.0",
     "@types/node": "20.2.5",
     "@types/react": "18.2.9",
     "@types/react-dom": "18.2.4",
+    "atomic-router": "^0.8.0",
+    "atomic-router-react": "^0.8.3",
     "axios": "^1.4.0",
     "effector": "^22.8.6",
     "effector-react": "^22.5.3",
@@ -20,7 +23,7 @@
     "eslint-config-next": "13.4.4",
     "mock-config-server": "^2.4.0",
     "next": "13.4.4",
-    "react": "18.2.0",
+    "react": "^18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.1.3"
   }
