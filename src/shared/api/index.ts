@@ -1,7 +1,7 @@
 import { AxiosRequestConfig } from 'axios';
 import { createEffect } from 'effector';
 
-import { api, mockapi } from './request';
+import { api, mockapi, requestFx } from './request';
 
 type MealType = 'Lunch' | 'Snack' | 'Breakfast' | 'Teatime';
 type Diet =
@@ -103,10 +103,11 @@ export type SignInError =
 export const signInFx = createEffect<SignIn, User, SignInError>(
   async (form) => {
     await new Promise((resolve) => setTimeout(resolve, 600));
-    return mockapi
-      .post('/signin', form)
-      .then((response) => response.data)
-      .catch((response) => Promise.reject(response.response.data));
+    return requestFx({
+      path: '/signin',
+      method: 'POST',
+      body: form,
+    });
   }
 );
 

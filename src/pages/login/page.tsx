@@ -38,6 +38,7 @@ import {
   passwordChanged,
   emailChanged,
   formSubmitted,
+  pageMounted,
 } from './model';
 
 const LoginPage = () => {
@@ -51,6 +52,10 @@ const LoginPage = () => {
     e.preventDefault();
     formSubmitted();
   };
+
+  useEffect(() => {
+    pageMounted();
+  }, []);
 
   return (
     <>
