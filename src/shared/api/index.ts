@@ -84,17 +84,17 @@ type SignInParams = {
   config?: AxiosRequestConfig;
 };
 
-type User = {
+export type User = {
   email: string;
   username: string;
 };
 
 interface SignIn {
   email: string;
-  username: string;
+  password: string;
 }
 
-type SignInError =
+export type SignInError =
   | {
       error: 'invalid_credentials';
     }
