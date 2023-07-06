@@ -100,9 +100,15 @@ export type SignInError =
     }
   | { error: 'invalid_request' };
 
-export const signInFx = createEffect<SignIn, User, SignInError>((form) => {
-  return mockapi.post('/signin', form);
-});
+export const signInFx = createEffect<SignIn, User, SignInError>(
+  async (form) => {
+    await new Promise((resolve) => setTimeout(resolve, 600));
+    return mockapi
+      .post('/signin', form)
+      .then((response) => response.data)
+      .catch((response) => Promise.reject(response.response.data));
+  }
+);
 
 type SignUpParams = {
   params: {

@@ -1,6 +1,9 @@
-import { createStore, createEvent, sample } from 'effector';
+import { createStore, createEvent, sample, attach } from 'effector';
 import { or, not } from 'patronum';
-import { SignInError, signInFx } from 'shared/api';
+
+import * as api from 'shared/api';
+
+const signInFx = attach({ effect: api.signInFx });
 
 export const emailChanged = createEvent<string>();
 export const passwordChanged = createEvent<string>();
@@ -14,11 +17,13 @@ export const $passwordError = createStore<null | 'empty' | 'invalid'>(null);
 export const $passwordLoginPending = signInFx.pending;
 export const $webauthnPending = createStore(false);
 export const $formDisabled = or($passwordLoginPending, $webauthnPending);
-export const $error = createStore<SignInError | null>(null);
+export const $error = createStore<api.SignInError | null>(null);
 
 $email.on(emailChanged, (_, email) => email);
 
 $password.on(passwordChanged, (_, password) => password);
+
+$error.reset(formSubmitted);
 
 sample({
   clock: formSubmitted,
@@ -26,3 +31,10 @@ sample({
   filter: not($formDisabled),
   target: signInFx,
 });
+
+$error.on(signInFx.failData, (_, error) => error);
+
+// handle signIn errors
+// validate email
+// validate password
+// reset stores
