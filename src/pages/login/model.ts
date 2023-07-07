@@ -86,7 +86,7 @@ sample({
 
 sample({
   clock: signInFx.done,
-  fn: () => 'Success',
+  fn: () => 'Successfull sign in',
   target: showAlertFx,
 });
 
