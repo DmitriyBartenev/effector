@@ -198,9 +198,7 @@ function ErrorView() {
     return <Text c='red'>Неверный пароль и/или почта</Text>;
   }
 
-  return (
-    <Text c='red'>Что-то пошло не так, попробуйте еще раз, пожалуйста</Text>
-  );
+  return <Text c='red'>Что-то пошло не так, попробуйте еще раз</Text>;
 }
 
 const ForgotPassword = () => (
