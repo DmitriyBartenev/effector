@@ -2,11 +2,11 @@ import ReactDOM from 'react-dom/client';
 
 import { appStarted } from 'shared/config/init';
 
-import Home from './page';
+import { App } from './app';
 import './globals.scss';
 
 const container = document.querySelector('#root') as HTMLElement;
 const root = ReactDOM.createRoot(container);
 
 appStarted();
-root.render(<Home />);
+root.render(<App />);
