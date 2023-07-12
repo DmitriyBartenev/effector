@@ -1,32 +1,46 @@
 {
-  "name": "effector",
-  "version": "0.1.0",
+  "name": "vite-react-typescript-starter",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "vite",
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
     "@mantine/core": "^6.0.16",
-    "@tabler/icons-react": "^2.23.0",
-    "@types/node": "20.2.5",
-    "@types/react": "18.2.9",
-    "@types/react-dom": "18.2.4",
+    "@mantine/form": "^6.0.16",
+    "@mantine/hooks": "^6.0.16",
+    "@mantine/modals": "^6.0.16",
+    "@mantine/notifications": "^6.0.16",
+    "@tabler/icons-react": "^2.24.0",
     "atomic-router": "^0.8.0",
-    "atomic-router-react": "^0.8.3",
+    "atomic-router-react": "^0.8.4",
     "axios": "^1.4.0",
+    "core-js": "^3.31.1",
     "effector": "^22.8.6",
     "effector-react": "^22.5.3",
-    "eslint": "8.42.0",
-    "eslint-config-next": "13.4.4",
     "history": "^5.3.0",
     "mock-config-server": "^2.4.0",
-    "next": "13.4.4",
     "patronum": "^1.18.0",
     "react": "^18.2.0",
-    "react-dom": "18.2.0",
-    "typescript": "5.1.3"
+    "react-dom": "^18.2.0",
+    "react-imask": "^7.1.2"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.8",
+    "@babel/preset-env": "^7.22.7",
+    "@babel/preset-react": "^7.22.5",
+    "@babel/preset-typescript": "^7.22.5",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@types/react": "^18.2.14",
+    "@types/react-dom": "^18.2.6",
+    "@vitejs/plugin-react": "^4.0.3",
+    "prettier": "^3.0.0",
+    "typescript": "^5.1.6",
+    "vite": "^4.4.3"
   }
 }
