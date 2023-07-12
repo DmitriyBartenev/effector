@@ -40,6 +40,7 @@ import {
   formSubmitted,
   pageMounted,
 } from './model';
+import { routes } from '~/shared/routing';
 
 const LoginPage = () => {
   const [passwordLoginPending, webauthnPending, formDisabled] = useUnit([
@@ -60,7 +61,7 @@ const LoginPage = () => {
   return (
     <>
       <Container size={420} my={40} w='100%' h='100vh'>
-        <Modal opened={false} title='Verify yout identity' centered>
+        <Modal onClose={close} opened={false} title='Verify yout identity' centered>
           <Flex
             justify='center'
             direction='column'
@@ -87,7 +88,7 @@ const LoginPage = () => {
         </Title>
         <Text color='dimmed' size='sm' align='center' mt={5}>
           Do not have an account yet?{' '}
-          <Anchor component={Link} size='sm' to={''}>
+          <Anchor component={Link} size='sm' to={routes.auth.register}>
             Create account
           </Anchor>
         </Text>

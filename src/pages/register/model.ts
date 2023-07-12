@@ -1,4 +1,4 @@
-import { routes } from 'shared/routing';
+import { routes } from '~/shared/routing';
 
 export const currentRoute = routes.auth.register;
 

@@ -7,8 +7,8 @@ import {
 } from 'effector';
 import { or, not, every, and, reset } from 'patronum';
 
-import * as api from 'shared/api';
-import { routes } from 'shared/routing';
+import * as api from '~/shared/api';
+import { routes } from '~/shared/routing';
 
 export const currentRoute = routes.auth.login;
 
