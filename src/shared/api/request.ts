@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { createEffect } from 'effector';
+import {createEffect} from 'effector';
 
 export const api = axios.create({
   baseURL: 'https://api.edamam.com/api/recipes/v2',
@@ -12,7 +12,7 @@ export const api = axios.create({
 });
 
 export const mockapi = axios.create({
-  baseURL: 'http://localhost:31299/api',
+  baseURL: '/api',
   timeout: 1000,
   validateStatus: (status) => status >= 200 && status < 300,
 });

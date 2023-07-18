@@ -1,16 +1,10 @@
-import { AxiosRequestConfig } from 'axios';
-import { createEffect } from 'effector';
+import {AxiosRequestConfig} from 'axios';
+import {createEffect} from 'effector';
 
-import { api, mockapi, requestFx } from './request';
+import {api, mockapi, requestFx} from './request';
 
 type MealType = 'Lunch' | 'Snack' | 'Breakfast' | 'Teatime';
-type Diet =
-  | 'balanced'
-  | 'high-fiber'
-  | 'high-protein'
-  | 'low-carb'
-  | 'low-fat'
-  | 'low-sodium';
+type Diet = 'balanced' | 'high-fiber' | 'high-protein' | 'low-carb' | 'low-fat' | 'low-sodium';
 type Ingr = `${number}+` | `${number}-${number}` | number;
 type Calories = `${number}+` | `${number}-${number}` | number;
 type Time = `${number}+` | `${number}-${number}` | number;
@@ -45,7 +39,7 @@ export type Recipe = {
   dietLabels: string[];
   dishType: string[];
   totalNutrients: {
-    [key: string]: { label: string; quantity: number; unit: string };
+    [key: string]: {label: string; quantity: number; unit: string};
   };
   healthLabels: string[];
   image: string;
@@ -70,11 +64,8 @@ type RequestSearchRecipeResponse = {
   more: boolean;
 };
 
-export const requestSearchRecipe = ({
-  params,
-  config,
-}: RequestSearchRecipeParams) =>
-  api.get<RequestSearchRecipeResponse>('/', { ...config, params });
+export const requestSearchRecipe = ({params, config}: RequestSearchRecipeParams) =>
+  api.get<RequestSearchRecipeResponse>('/', {...config, params});
 
 type SignInParams = {
   params: {
@@ -98,18 +89,26 @@ export type SignInError =
   | {
       error: 'invalid_credentials';
     }
-  | { error: 'invalid_request' };
+  | {error: 'invalid_request'};
 
-export const signInFx = createEffect<SignIn, User, SignInError>(
-  async (form) => {
-    await new Promise((resolve) => setTimeout(resolve, 600));
-    return requestFx({
-      path: '/signin',
-      method: 'POST',
-      body: form,
-    });
-  }
-);
+export const signInFx = createEffect<SignIn, User, SignInError>(async (form) => {
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return requestFx({
+    path: '/signin',
+    method: 'POST',
+    body: form,
+  });
+});
+
+export type SessionGetError = {error: 'unauthorized'};
+
+export const sessionGetFx = createEffect<void, User, SessionGetError>(async () => {
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return requestFx({
+    path: '/session',
+    method: 'GET',
+  });
+});
 
 type SignUpParams = {
   params: {
@@ -125,8 +124,8 @@ type SignUpResponse = {
   username: string;
 };
 
-export const signUp = ({ params, config }: SignUpParams) =>
-  mockapi.post<SignUpResponse>('/signup', { ...config, params });
+export const signUp = ({params, config}: SignUpParams) =>
+  mockapi.post<SignUpResponse>('/signup', {...config, params});
 
 type ResetPasswordParams = {
   params: {
@@ -139,5 +138,5 @@ type ResetPasswordResponse = {
   success: boolean;
 };
 
-export const resetPassword = ({ params, config }: ResetPasswordParams) =>
-  mockapi.post<ResetPasswordResponse>('/reset-password', { ...config, params });
+export const resetPassword = ({params, config}: ResetPasswordParams) =>
+  mockapi.post<ResetPasswordResponse>('/reset-password', {...config, params});
