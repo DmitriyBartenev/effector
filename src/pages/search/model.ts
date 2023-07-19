@@ -33,3 +33,12 @@ currentRoute.open.watch(() => console.info('Search route opened'));
  * $authorized === false
  * cancel => redirect to /login
  */
+
+/*
+ * currentRoute.opened
+ * $sessionLoaded === true
+ * sessionRequestFx
+ * currentRoute.closed
+ * sessionRequestFx.done /.fail
+ * ignore / do nothing
+ */
