@@ -1,18 +1,26 @@
 import {chainRoute, RouteInstance, RouteParams, RouteParamsAndQuery} from 'atomic-router';
-import {createEvent, sample} from 'effector';
+import {createEvent, Effect, Event, sample} from 'effector';
 
 import {routes} from '~/shared/routing';
-import {$authenticationStatus, AuthStatus} from '~/shared/session';
+import {$authenticationStatus, AuthStatus, sessionRequestFx} from '~/shared/session';
 
 export const currentRoute = routes.search;
-const authorizedRoute = chainAuthorized(currentRoute);
+const authorizedRoute = chainAuthorized(currentRoute, {
+  otherwise: routes.auth.login.open,
+});
 
-currentRoute.open.watch(() => console.info('Search route opened'));
+authorizedRoute.open.watch(() => console.info('Search authorized route opened'));
+
+interface ChainParams<Params extends RouteParams> {
+  otherwise?: Event<void> | Effect<void, any, any>;
+}
 
 function chainAuthorized<Params extends RouteParams>(
   route: RouteInstance<Params>,
+  {otherwise}: ChainParams<Params> = {},
 ): RouteInstance<Params> {
   const sessionCheckStarted = createEvent<RouteParamsAndQuery<Params>>();
+  const sessionReceivedAnonymous = createEvent<RouteParamsAndQuery<Params>>();
 
   const alreadyAuthenticated = sample({
     clock: sessionCheckStarted,
@@ -20,10 +28,38 @@ function chainAuthorized<Params extends RouteParams>(
     filter: (status) => status === AuthStatus.Authenticated,
   });
 
+  const alreadyAnonymous = sample({
+    clock: sessionCheckStarted,
+    source: $authenticationStatus,
+    filter: (status) => status === AuthStatus.Anonymous,
+  });
+
+  sample({
+    clock: sessionCheckStarted,
+    source: $authenticationStatus,
+    filter: (status) => status === AuthStatus.Initial,
+    target: sessionRequestFx,
+  });
+
+  sample({
+    clock: [alreadyAnonymous, sessionRequestFx.fail],
+    source: {params: route.$params, query: route.$query},
+    filter: route.$isOpened,
+    target: sessionReceivedAnonymous,
+  });
+
+  if (otherwise) {
+    sample({
+      clock: sessionReceivedAnonymous,
+      target: otherwise as Event<void>,
+    });
+  }
+
   return chainRoute({
     route,
     beforeOpen: sessionCheckStarted,
-    openOn: alreadyAuthenticated,
+    openOn: [alreadyAuthenticated, sessionRequestFx.done],
+    cancelOn: alreadyAnonymous,
   });
 }
 
