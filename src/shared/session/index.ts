@@ -4,7 +4,7 @@ import * as api from '~/shared/api';
 
 import {User} from '../api';
 
-enum AuthStatus {
+export enum AuthStatus {
   Initial = 0,
   Pending,
   Anonymous,
@@ -14,7 +14,7 @@ enum AuthStatus {
 export const sessionRequestFx = attach({effect: api.sessionGetFx});
 
 export const $user = createStore<User | null>(null);
-const $authenticationStatus = createStore(AuthStatus.Initial);
+export const $authenticationStatus = createStore(AuthStatus.Initial);
 
 $authenticationStatus.on(sessionRequestFx, (status) => {
   if (status === AuthStatus.Initial) return AuthStatus.Pending;
