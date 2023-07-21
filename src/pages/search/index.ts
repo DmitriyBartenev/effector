@@ -1,4 +1,4 @@
-import { currentRoute } from './model';
+import {authorizedRoute, currentRoute} from './model';
 import SearchPage from './page';
 
 export const SearchRoute = {
