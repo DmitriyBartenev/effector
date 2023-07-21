@@ -1,18 +1,16 @@
-import {
-  createStore,
-  createEvent,
-  sample,
-  attach,
-  createEffect,
-} from 'effector';
-import { or, not, every, and, reset } from 'patronum';
+import {attach, createEffect, createEvent, createStore, sample} from 'effector';
+import {and, every, not, or, reset} from 'patronum';
 
 import * as api from '~/shared/api';
-import { routes } from '~/shared/routing';
+import {routes} from '~/shared/routing';
+import {chainAnonymous} from '~/shared/session';
 
 export const currentRoute = routes.auth.login;
+export const anonymousRoute = chainAnonymous(currentRoute, {
+  otherwise: routes.search.open,
+});
 
-const signInFx = attach({ effect: api.signInFx });
+const signInFx = attach({effect: api.signInFx});
 
 const showAlertFx = createEffect((title: string) => {
   alert(title);
@@ -40,18 +38,11 @@ const $formValid = every({
   predicate: null,
 });
 
-currentRoute.opened.watch(() => console.info('Login route opened'));
+anonymousRoute.opened.watch(() => console.info('Login route opened'));
 
 reset({
   clock: pageMounted,
-  target: [
-    $email,
-    $emailError,
-    $password,
-    $passwordError,
-    $webauthnPending,
-    $error,
-  ],
+  target: [$email, $emailError, $password, $passwordError, $webauthnPending, $error],
 });
 
 $email.on(emailChanged, (_, email) => email);
@@ -84,7 +75,7 @@ sample({
 
 sample({
   clock: formSubmitted,
-  source: { email: $email, password: $password },
+  source: {email: $email, password: $password},
   filter: and(not($formDisabled), $formValid),
   target: signInFx,
 });
