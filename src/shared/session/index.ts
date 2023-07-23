@@ -123,7 +123,7 @@ export function chainAnonymous<Params extends RouteParams>(
   return chainRoute({
     route,
     beforeOpen: sessionCheckStarted,
-    openOn: [alreadyAnonymous, sessionRequestFx.done],
+    openOn: [alreadyAnonymous, sessionRequestFx.fail],
     cancelOn: sessionReceivedAuthenticated,
   });
 }

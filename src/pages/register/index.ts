@@ -6,6 +6,6 @@ import {anonymousRoute, currentRoute} from './model';
 import RegisterPage from './page';
 
 export const RegisterRoute = {
-  view: createRouteView({route: anonymousRoute, view: RegisterPage, otherwise: PageLoader}),
+  view: createRouteView({route: anonymousRoute, component: RegisterPage, otherwise: PageLoader}),
   route: currentRoute,
 };
