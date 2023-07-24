@@ -3,7 +3,7 @@ import {and, every, not, or, reset} from 'patronum';
 
 import * as api from '~/shared/api';
 import {routes} from '~/shared/routing';
-import {chainAnonymous} from '~/shared/session';
+import {chainAnonymous, sessionRequestFx} from '~/shared/session';
 
 export const currentRoute = routes.auth.login;
 export const anonymousRoute = chainAnonymous(currentRoute, {
@@ -11,10 +11,6 @@ export const anonymousRoute = chainAnonymous(currentRoute, {
 });
 
 const signInFx = attach({effect: api.signInFx});
-
-const showAlertFx = createEffect((title: string) => {
-  alert(title);
-});
 
 export const pageMounted = createEvent();
 
@@ -82,8 +78,7 @@ sample({
 
 sample({
   clock: signInFx.done,
-  fn: () => 'Successfull sign in',
-  target: showAlertFx,
+  target: sessionRequestFx,
 });
 
 $error.on(signInFx.failData, (_, error) => error);

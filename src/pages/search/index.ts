@@ -8,7 +8,7 @@ import SearchPage from './page';
 export const SearchRoute = {
   view: createRouteView({
     route: authorizedRoute,
-    component: SearchPage,
+    view: SearchPage,
     otherwise: PageLoader,
   }),
   route: currentRoute,
