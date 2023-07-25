@@ -109,7 +109,7 @@ interface SignUp {
   password: string;
 }
 
-export type SignUpError = {error: 'invalid_credentials,'} | {error: 'user_exists'};
+export type SignUpError = {error: 'invalid_credentials'} | {error: 'user_exists'};
 
 export const signUpFx = createEffect<SignUp, null, SignUpError>(async (form) => {
   await new Promise((resolve) => setTimeout(resolve, 600));
