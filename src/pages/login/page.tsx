@@ -137,7 +137,6 @@ function Email() {
     <TextInput
       label="email"
       placeholder="email"
-      required
       icon={<IconAt size="0.8rem" />}
       value={email}
       onChange={(event) => emailChanged(event.target.value)}
@@ -163,7 +162,6 @@ function Password() {
     <PasswordInput
       label="password"
       placeholder="your password"
-      required
       mt="md"
       icon={<IconLock size="0.8rem" />}
       value={password}
