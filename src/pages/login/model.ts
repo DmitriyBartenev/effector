@@ -1,4 +1,4 @@
-import {attach, createEffect, createEvent, createStore, sample} from 'effector';
+import {attach, createEvent, createStore, sample} from 'effector';
 import {and, every, not, or, reset} from 'patronum';
 
 import * as api from '~/shared/api';

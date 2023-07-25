@@ -47,5 +47,3 @@ export const RegisterPage = () => (
     </Container>
   </>
 );
-
-export default RegisterPage;
