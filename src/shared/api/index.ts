@@ -67,14 +67,6 @@ type RequestSearchRecipeResponse = {
 export const requestSearchRecipe = ({params, config}: RequestSearchRecipeParams) =>
   api.get<RequestSearchRecipeResponse>('/', {...config, params});
 
-type SignInParams = {
-  params: {
-    email: string;
-    password: string;
-  };
-  config?: AxiosRequestConfig;
-};
-
 export type User = {
   email: string;
   username: string;
@@ -110,22 +102,36 @@ export const sessionGetFx = createEffect<void, User, SessionGetError>(async () =
   });
 });
 
-type SignUpParams = {
-  params: {
-    email: string;
-    password: string;
-    username: string;
-  };
-  config?: AxiosRequestConfig;
-};
-
-type SignUpResponse = {
-  email: string;
+interface SignUp {
   username: string;
-};
+  phone: string;
+  email: string;
+  password: string;
+}
 
-export const signUp = ({params, config}: SignUpParams) =>
-  mockapi.post<SignUpResponse>('/signup', {...config, params});
+export type SignUpError = {error: 'invalid_credentials,'} | {error: 'user_exists'};
+
+export const signUpFx = createEffect<SignUp, null, SignUpError>(async (form) => {
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return requestFx({
+    path: '/signup',
+    method: 'POST',
+    body: form,
+  });
+});
+
+interface ConfirmPhone {
+  code: string;
+}
+
+export const confirmPhoneFx = createEffect<ConfirmPhone, User>(async (form) => {
+  await new Promise((resolve) => setTimeout(resolve, 600));
+  return requestFx({
+    path: '/confirm',
+    method: 'POST',
+    body: form,
+  });
+});
 
 type ResetPasswordParams = {
   params: {
