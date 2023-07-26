@@ -1,4 +1,4 @@
-import type { MockServerConfig } from 'mock-config-server';
+import type {MockServerConfig} from 'mock-config-server';
 
 export const mockServerConfig: MockServerConfig = {
   rest: {
@@ -9,30 +9,30 @@ export const mockServerConfig: MockServerConfig = {
         method: 'post',
         routes: [
           {
-            data: { error: 'invalid_request' },
+            data: {error: 'invalid_request'},
             interceptors: {
-              response: (data, { setStatusCode }) => {
+              response: (data, {setStatusCode}) => {
                 setStatusCode(400);
                 return data;
               },
             },
           },
           {
-            data: { error: 'invalid_credentials' },
+            data: {error: 'invalid_credentials'},
             entities: {
               body: {
                 email: 'bartenevdmitriy@bk.ru',
               },
             },
             interceptors: {
-              response: (data, { setStatusCode }) => {
+              response: (data, {setStatusCode}) => {
                 setStatusCode(403);
                 return data;
               },
             },
           },
           {
-            data: { email: 'bartenevdmitriy@bk.ru', username: 'dmitriy' },
+            data: {email: 'bartenevdmitriy@bk.ru', username: 'dmitriy'},
             entities: {
               body: {
                 email: 'bartenevdmitriy@bk.ru',
@@ -40,11 +40,8 @@ export const mockServerConfig: MockServerConfig = {
               },
             },
             interceptors: {
-              response: (data, { appendHeader }) => {
-                appendHeader(
-                  'Set-Cookie',
-                  'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly'
-                );
+              response: (data, {appendHeader}) => {
+                appendHeader('Set-Cookie', 'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly');
                 return data;
               },
             },
@@ -58,26 +55,23 @@ export const mockServerConfig: MockServerConfig = {
           {
             entities: {
               body: {
-                username: 'dima',
+                username: 'dmitriy',
               },
             },
-            data: { error: 'user_exist' },
+            data: {error: 'user_exist'},
             interceptors: {
-              response: (data, { setStatusCode }) => {
+              response: (data, {setStatusCode}) => {
                 setStatusCode(403);
                 return data;
               },
             },
           },
           {
-            data: { success: true },
+            data: {success: true},
             interceptors: {
-              response: (data, { appendHeader, request }) => {
-                appendHeader(
-                  'Set-Cookie',
-                  'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly'
-                );
-                return { ...request.body.email };
+              response: (data, {appendHeader, request}) => {
+                appendHeader('Set-Cookie', 'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly');
+                return {...request.body.email};
               },
             },
           },
@@ -88,14 +82,13 @@ export const mockServerConfig: MockServerConfig = {
         method: 'get',
         routes: [
           {
-            data: { email: 'bartenevdmitriy@bk.ru', username: 'dmitriy' },
+            data: {email: 'bartenevdmitriy@bk.ru', username: 'dmitriy'},
             interceptors: {
-              response: (data, { request, setStatusCode }) => {
-                if (request.headers.cookie === 'token=auth-user-token')
-                  return data;
+              response: (data, {request, setStatusCode}) => {
+                if (request.headers.cookie === 'token=auth-user-token') return data;
 
                 setStatusCode(401);
-                return { error: 'unauthorized' };
+                return {error: 'unauthorized'};
               },
             },
           },
@@ -106,13 +99,10 @@ export const mockServerConfig: MockServerConfig = {
         method: 'post',
         routes: [
           {
-            data: { email: 'bartenevdmitriy@bk.ru', username: 'dmitriy' },
+            data: {email: 'bartenevdmitriy@bk.ru', username: 'dmitriy'},
             interceptors: {
-              response: (data, { appendHeader }) => {
-                appendHeader(
-                  'Set-Cookie',
-                  'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly'
-                );
+              response: (data, {appendHeader}) => {
+                appendHeader('Set-Cookie', 'token=auth-user-token;Max-Age=3600;Path=/;HttpOnly');
                 return data;
               },
             },
@@ -124,9 +114,9 @@ export const mockServerConfig: MockServerConfig = {
         method: 'post',
         routes: [
           {
-            data: { success: true },
+            data: {success: true},
             interceptors: {
-              response: (data, { appendHeader }) => {
+              response: (data, {appendHeader}) => {
                 appendHeader('Set-Cookie', 'token=auth-user-token');
                 return data;
               },
