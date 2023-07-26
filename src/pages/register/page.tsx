@@ -22,9 +22,12 @@ import {routes} from '~/shared/routing';
 
 import {pageMounted} from '../login/model';
 import {
+  $confirmPhoheFormDisabled,
   $confirmPhone,
   $registrationFormDisabled,
   $signUpError,
+  codeField,
+  confirmPhoneSubmitted,
   emailField,
   passwordField,
   phoneField,
@@ -46,6 +49,8 @@ export const RegisterPage = () => {
     event.preventDefault();
     registrationFormSubmitted();
   };
+
+  if (confirmPhone) return <ConfirmPhoneForm />;
 
   return (
     <>
@@ -206,4 +211,31 @@ function ErrorView() {
   }
 
   return <Text c="red">Что-то пошло не так, попробуйте еще раз</Text>;
+}
+
+function ConfirmPhoneForm() {
+  const [code, confirmPhoheFormDisabled] = useUnit([codeField.$value, $confirmPhoheFormDisabled]);
+
+  return (
+    <Container size={420} my={40} w="100%" h="100vh">
+      <Title align="center">Validate your phone</Title>
+      <Text c="dimmed" fz="sm" ta="center">
+        Enter your code from sms
+      </Text>
+
+      <Group position="center" mt="lg">
+        <PinInput
+          value={code}
+          length={6}
+          disabled={confirmPhoheFormDisabled}
+          onChange={(value) => {
+            codeField.changed(value);
+            if (value.length === 6) {
+              confirmPhoneSubmitted();
+            }
+          }}
+        />
+      </Group>
+    </Container>
+  );
 }
