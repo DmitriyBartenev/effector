@@ -70,6 +70,11 @@ export const usernameField = createField({
   },
 });
 
+export const codeField = createField({
+  defaultValue: '',
+  resetOn: anonymousRoute.closed,
+});
+
 export const $registrationFormDisabled = signUpFx.pending;
 export const $confirmPhoheFormDisabled = confirmPhoneFx.pending;
 const $registrationFormValid = every({
@@ -77,11 +82,6 @@ const $registrationFormValid = every({
   stores: [emailField.$error, passwordField.$error, usernameField.$error, phoneField.$error],
   predicate: null,
 });
-
-// Fix
-export const $code = createStore('');
-export const codeChanged = createEvent<string>();
-$code.on(codeChanged, (_, code) => code);
 
 $signUpError.reset(registrationFormSubmitted);
 
@@ -102,7 +102,7 @@ $confirmPhone.on(signUpFx.done, () => true);
 
 sample({
   clock: confirmPhoneSubmitted,
-  source: {code: $code},
+  source: {code: codeField.$value},
   filter: not($registrationFormDisabled),
   target: confirmPhoneFx,
 });
@@ -114,7 +114,7 @@ sample({
 
 reset({
   clock: anonymousRoute.closed,
-  target: [$code, $signUpError, $confirmPhone],
+  target: [codeField.$value, $signUpError, $confirmPhone],
 });
 
 function isEmailValid(email: string) {
