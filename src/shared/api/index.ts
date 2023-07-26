@@ -3,7 +3,7 @@ import {createEffect} from 'effector';
 
 import {api, mockapi, requestFx} from './request';
 
-type MealType = 'Lunch' | 'Snack' | 'Breakfast' | 'Teatime';
+export type MealType = 'Lunch' | 'Snack' | 'Breakfast' | 'Teatime';
 type Diet = 'balanced' | 'high-fiber' | 'high-protein' | 'low-carb' | 'low-fat' | 'low-sodium';
 type Ingr = `${number}+` | `${number}-${number}` | number;
 type Calories = `${number}+` | `${number}-${number}` | number;

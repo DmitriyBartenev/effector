@@ -14,6 +14,8 @@ import {
 import {useList, useUnit} from 'effector-react';
 import React, {useEffect} from 'react';
 
+import {$currentMealTypes, mealTypeToggled} from './model';
+
 export const SearchPage = () => {
   return (
     <Container size={900} my={40} w="100%">
@@ -115,9 +117,21 @@ function SearchQuery() {
 }
 
 function MealTypes() {
+  const [currentMeal] = useUnit([$currentMealTypes]);
+
   return (
     <Group position="left" my="lg">
       <Text fz="md">meal types</Text>
+      {currentMeal.map(({meal, selected}) => (
+        <Chip
+          variant="light"
+          value={meal}
+          checked={selected}
+          onChange={() => mealTypeToggled(meal)}
+        >
+          {meal}
+        </Chip>
+      ))}
     </Group>
   );
 }
