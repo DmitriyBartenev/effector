@@ -1,6 +1,8 @@
-import {combine, createEvent, createStore} from 'effector';
+import {attach, combine, createEvent, createStore, merge} from 'effector';
+import {debounce} from 'patronum';
 
-import {MealType} from '~/shared/api';
+import * as api from '~/shared/api';
+import {MealType, Recipe} from '~/shared/api';
 import {routes} from '~/shared/routing';
 import {chainAuthorized} from '~/shared/session';
 
@@ -12,11 +14,15 @@ export const authorizedRoute = chainAuthorized(currentRoute, {
 export const searchQueryChanged = createEvent<string>();
 export const mealTypeToggled = createEvent<MealType>();
 export const kcalChanged = createEvent<number>();
+const formChanged = merge([searchQueryChanged, mealTypeToggled, kcalChanged]);
 
 export const $searchQuery = createStore<string>('');
 const $mealType = createStore<MealType[]>([]);
 const $availableMealTypes = createStore<MealType[]>(['Breakfast', 'Lunch', 'Snack', 'Teatime']);
 export const $kcal = createStore<number>(100);
+
+export const $searching = createStore(false);
+export const $searchResults = createStore<Recipe[]>([]);
 
 export const $currentMealTypes = combine(
   $mealType,
@@ -24,6 +30,13 @@ export const $currentMealTypes = combine(
   (mealTypes, availableTypes) =>
     availableTypes.map((meal) => ({meal, selected: mealTypes.includes(meal)})),
 );
+
+const searchFx = attach({
+  source: {q: $searchQuery, mealType: $mealType, kcal: $kcal},
+  async effect({q, mealType, kcal}) {
+    return api.recipiesSearchFx({q, mealType, calories: `0-${kcal}`});
+  },
+});
 
 $searchQuery.on(searchQueryChanged, (_, query) => query);
 $mealType.on(mealTypeToggled, (list, mealType) => {
@@ -37,3 +50,11 @@ $mealType.on(mealTypeToggled, (list, mealType) => {
   return copy;
 });
 $kcal.on(kcalChanged, (_, kcal) => kcal);
+
+debounce({
+  source: formChanged,
+  timeout: 500,
+  target: searchFx,
+});
+
+$searchResults.on(searchFx.doneData, (_, {hits}) => hits.map((hit) => hit.recipe));
