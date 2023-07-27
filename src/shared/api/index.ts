@@ -1,7 +1,7 @@
 import {AxiosRequestConfig} from 'axios';
 import {createEffect} from 'effector';
 
-import {api, mockapi, requestFx} from './request';
+import {mockapi, requestFx} from './request';
 
 export type MealType = 'Lunch' | 'Snack' | 'Breakfast' | 'Teatime';
 type Diet = 'balanced' | 'high-fiber' | 'high-protein' | 'low-carb' | 'low-fat' | 'low-sodium';
@@ -9,17 +9,14 @@ type Ingr = `${number}+` | `${number}-${number}` | number;
 type Calories = `${number}+` | `${number}-${number}` | number;
 type Time = `${number}+` | `${number}-${number}` | number;
 
-interface RequestSearchRecipeParams {
-  params: {
-    q?: string;
-    from?: number;
-    mealType?: Array<MealType>;
-    diet?: Array<Diet>;
-    ingr?: Ingr;
-    calories?: Calories;
-    time?: Time;
-  };
-  config?: AxiosRequestConfig;
+interface RecipiesSearch {
+  q?: string;
+  from?: number;
+  mealType?: Array<MealType>;
+  diet?: Array<Diet>;
+  ingr?: Ingr;
+  calories?: Calories;
+  time?: Time;
 }
 
 type Ingredient = {
@@ -55,17 +52,39 @@ export type Recipe = {
   url: string;
 };
 
-type RequestSearchRecipeResponse = {
+type RecipiesSearchDone = {
   from: number;
   to: number;
   q: string;
   count: number;
-  hits: Recipe[];
+  hits: {
+    recipe: Recipe;
+  }[];
   more: boolean;
 };
 
-export const requestSearchRecipe = ({params, config}: RequestSearchRecipeParams) =>
-  api.get<RequestSearchRecipeResponse>('/', {...config, params});
+export const recipiesSearchFx = createEffect<RecipiesSearch, RecipiesSearchDone>((form) => {
+  const urlSearch = new URLSearchParams();
+  if (form.q) {
+    urlSearch.append('q', form.q);
+  }
+
+  if (form.mealType) {
+    form.mealType.forEach((mealType) => {
+      urlSearch.append('mealType', mealType);
+    });
+  }
+
+  if (form.calories) {
+    urlSearch.append('calories', String(form.calories));
+  }
+
+  return requestFx({
+    method: 'GET',
+    path: `/?${urlSearch.toString()}`,
+    instance: 'api',
+  });
+});
 
 export type User = {
   email: string;

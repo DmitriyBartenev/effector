@@ -6,8 +6,8 @@ export const api = axios.create({
   timeout: 1000,
   params: {
     type: 'public',
-    app_id: '1149329a',
-    app_key: '076ca6efe90d483acbd153b9ced739b3',
+    app_id: '2a3177b2',
+    app_key: '5c61b3aea75a67ec7ced14be8a5c81e1',
   },
 });
 
@@ -21,10 +21,12 @@ interface Request {
   path: string;
   method: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
   body?: unknown;
+  instance?: 'mockapi' | 'api';
 }
 
 export const requestFx = createEffect<Request, any>((request) => {
-  return mockapi({
+  const selectedApi = request.instance === 'api' ? api : mockapi;
+  return selectedApi({
     method: request.method,
     url: request.path,
     data: request.body,
