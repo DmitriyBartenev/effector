@@ -14,10 +14,14 @@ import {
 import {useList, useUnit} from 'effector-react';
 import React, {useEffect} from 'react';
 
+import {RecipeCard} from '~/shared/ui';
+
 import {
   $currentMealTypes,
   $kcal,
+  $searching,
   $searchQuery,
+  $searchResults,
   kcalChanged,
   mealTypeToggled,
   searchQueryChanged,
@@ -163,9 +167,27 @@ function Calories() {
 }
 
 function ResultsLoader() {
+  const loading = useUnit($searching);
+  if (loading) {
+    return (
+      <Center>
+        <Loader variant="dots" />
+      </Center>
+    );
+  }
+
   return null;
 }
 
 function Results() {
-  return <Grid grow>{}</Grid>;
+  const results = useList($searchResults, {
+    getKey: (recipe) => recipe.label,
+    fn: (recipe) => (
+      <Grid.Col span={6}>
+        <RecipeCard recipe={recipe} />
+      </Grid.Col>
+    ),
+  });
+
+  return <Grid grow>{results}</Grid>;
 }
