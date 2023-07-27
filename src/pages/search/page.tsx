@@ -14,7 +14,14 @@ import {
 import {useList, useUnit} from 'effector-react';
 import React, {useEffect} from 'react';
 
-import {$currentMealTypes, mealTypeToggled} from './model';
+import {
+  $currentMealTypes,
+  $kcal,
+  $searchQuery,
+  kcalChanged,
+  mealTypeToggled,
+  searchQueryChanged,
+} from './model';
 
 export const SearchPage = () => {
   return (
@@ -103,6 +110,8 @@ export const SearchPage = () => {
 };
 
 function SearchQuery() {
+  const query = useUnit($searchQuery);
+
   return (
     <Group position="left" my="lg">
       <TextInput
@@ -111,35 +120,43 @@ function SearchQuery() {
         placeholder="type one or more keywords"
         label="Find by keyword"
         withAsterisk
+        value={query}
+        onChange={(event) => searchQueryChanged(event.target.value)}
       />
     </Group>
   );
 }
 
 function MealTypes() {
-  const [currentMeal] = useUnit([$currentMealTypes]);
+  const meals = useList($currentMealTypes, {
+    getKey: ({meal}) => meal,
+    fn: ({meal, selected}) => (
+      <Chip variant="light" value={meal} checked={selected} onChange={() => mealTypeToggled(meal)}>
+        {meal}
+      </Chip>
+    ),
+  });
 
   return (
     <Group position="left" my="lg">
       <Text fz="md">meal types</Text>
-      {currentMeal.map(({meal, selected}) => (
-        <Chip
-          variant="light"
-          value={meal}
-          checked={selected}
-          onChange={() => mealTypeToggled(meal)}
-        >
-          {meal}
-        </Chip>
-      ))}
+      {meals}
     </Group>
   );
 }
 
 function Calories() {
+  const calories = useUnit($kcal);
+
   return (
     <Group position="left" my="lg">
-      <NumberInput w="30%" defaultValue={100} placeholder="kcal" />
+      <NumberInput
+        w="30%"
+        defaultValue={100}
+        placeholder="kcal"
+        value={calories}
+        onChange={(value) => kcalChanged(typeof value === 'number' ? value : 0)}
+      />
       <Text fz="md">kcal</Text>
     </Group>
   );
