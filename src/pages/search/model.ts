@@ -1,4 +1,4 @@
-import {attach, combine, createEvent, createStore, merge} from 'effector';
+import {attach, combine, createEvent, createStore, merge, sample} from 'effector';
 import {debounce} from 'patronum';
 
 import * as api from '~/shared/api';
@@ -38,6 +38,11 @@ const searchFx = attach({
   },
 });
 
+sample({
+  clock: authorizedRoute.opened,
+  target: searchFx,
+});
+
 $searchQuery.on(searchQueryChanged, (_, query) => query);
 $mealType.on(mealTypeToggled, (list, mealType) => {
   const copy = list.filter((type) => type !== mealType);
@@ -56,5 +61,7 @@ debounce({
   timeout: 500,
   target: searchFx,
 });
+
+$searching.on(searchFx.pending, (_, pending) => pending);
 
 $searchResults.on(searchFx.doneData, (_, {hits}) => hits.map((hit) => hit.recipe));
