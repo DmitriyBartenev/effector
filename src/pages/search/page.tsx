@@ -14,6 +14,7 @@ import {
 import {useList, useUnit} from 'effector-react';
 import React, {useEffect} from 'react';
 
+import {useIntersection} from '~/shared/lib/intersection';
 import {RecipeCard} from '~/shared/ui';
 
 import {
@@ -22,12 +23,26 @@ import {
   $searching,
   $searchQuery,
   $searchResults,
+  endOfResultsReached,
   kcalChanged,
   mealTypeToggled,
   searchQueryChanged,
 } from './model';
 
 export const SearchPage = () => {
+  const intersectionRef = React.useRef(null);
+  const intersection = useIntersection(intersectionRef, {
+    root: null,
+    rootMargin: '100px',
+    threshold: 1,
+  });
+
+  useEffect(() => {
+    if (intersection?.isIntersecting) {
+      endOfResultsReached();
+    }
+  }, [intersection?.isIntersecting]);
+
   return (
     <Container size={900} my={40} w="100%">
       <Title
@@ -106,9 +121,11 @@ export const SearchPage = () => {
         </Group>
         */}
       </Box>
+
       <ResultsLoader />
       <Results />
-      <Box p="sm"></Box>
+
+      <Box p="sm" ref={intersectionRef}></Box>
     </Container>
   );
 };
