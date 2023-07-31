@@ -20,13 +20,13 @@ The application allows users to search for recipes by name, filter recipes by ta
 
 Follow the steps below to set up the project on your local machine.
 
-## Prerequisites
+### Prerequisites
 
 Make sure you have the following software installed:
 - Node.js (v14 or higher)
 - npm (v7 or higher)
 
-## Installation
+### Installation
 
 1. Clone the repository to your local machine:
 
@@ -35,7 +35,7 @@ Make sure you have the following software installed:
 
    `npm install`
 
-## Starting the Development Server
+### Starting the Development Server
 
 To start the development server and run the application locally, use the following command:
 
@@ -43,7 +43,7 @@ To start the development server and run the application locally, use the followi
 
 The application will be available at `http://localhost:5173/`
 
-## Mock Server Configuration
+### Mock Server Configuration
 
 The application uses a mock server to handle login and register functionality. You can use the following credentials to log in:
 
